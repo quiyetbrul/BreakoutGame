@@ -34,6 +34,8 @@ public class Ball extends GameObject{
         // bounce on LTR edge for now
         bounceOnWall();
 
+        // bounce on paddle
+         bounceOnPaddle();
 
         // each time ball goes beyond bottom edge, ball gets destroyed
         // lives > 0 ? add ball
@@ -45,32 +47,33 @@ public class Ball extends GameObject{
             if(gameStart == GAME_STATE.GameOver)
                 handler.removeObject(this);
         }
-//        bounceOnPaddle();
+
     }
 
     private void bounceOnWall(){
-        // remove || y_coordinate >= WINDOW_HEIGHT - 50 for the ball not to bounce on bottom edge
+        // remove || y_coordinate >= WINDOW_HEIGHT - 50 to remove bottom wall
         if(y_coordinate <=0 || y_coordinate >= WINDOW_HEIGHT - 50) velY *= -1;
         if(x_coordinate <=0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
     }
 
-//    private void bounceOnPaddle(){
-//        for(int i = 0; i < handler.object.size(); i++){
-//            GameObject player = handler.object.get(i);
-//
+    private void bounceOnPaddle(){
+        for(int i = 0; i < handler.object.size(); i++){
+            GameObject player = handler.object.get(i);
+
 //            if(player.getX_coordinate())
-//
-//            if(player.getId() == ID.Ball){
-//                if(getBounds().intersects(player.getBounds())){
-//                    velX *= -1;
-//                    velY *= -1;
-//                }
-//            }
-//        }
-//    }
+
+            if(player.getId() == ID.Player){
+                if(getBounds().intersects(player.getBounds())){
+//                    velX *= -1; // keep velX, change velY -> makes physics more natural
+                    velY *= -1;
+                }
+            }
+        }
+    }
 
     @Override
     public void render(Graphics g) {
+        g.setColor(Color.PINK);
         g.fillOval((int) x_coordinate, (int) y_coordinate, BALL_WIDTH, BALL_HEIGHT);
     }
 }
