@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class Player extends GameObject {
 
-    Handler handler;
+    private Handler handler;
+    private HUD hud;
+
     private final int PADDLE_WIDTH = 100;
     private final int PADDLE_HEIGHT = 10;
 
@@ -16,20 +18,26 @@ public class Player extends GameObject {
     }
     
     public Rectangle getBounds(){
-        return new Rectangle((int)x, (int)y, PADDLE_WIDTH, PADDLE_HEIGHT);
+        return new Rectangle((int) x_coordinate, (int) y_coordinate, PADDLE_WIDTH, PADDLE_HEIGHT);
     }
 
     public void tick() {
         // so movement isn't laggy
-        x += velX;
+        // x-coord vel is set in KeyInput
+        x_coordinate += getVelX();
 
         // x-coordinate boundary
-        x = GameMain.clamp((int)x, 0, GameMain.WINDOW_WIDTH - PADDLE_WIDTH);
+        x_coordinate = GameMain.clamp((int) x_coordinate, 0, GameMain.WINDOW_WIDTH - PADDLE_WIDTH);
+
+        // removes paddle when GameOver screen shows up
+        if(gameStart == GAME_STATE.GameOver) {
+            handler.removeObject(this);
+        }
     }
 
+    // renders paddle
     public void render(Graphics g) {
-        // renders paddle
         g.setColor(Color.white);
-        g.fillRect((int)x, (int)y, PADDLE_WIDTH, PADDLE_HEIGHT);
+        g.fillRect((int) x_coordinate, (int) y_coordinate, PADDLE_WIDTH, PADDLE_HEIGHT);
     }
 }
