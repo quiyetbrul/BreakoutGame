@@ -24,7 +24,7 @@ public class Player extends GameObject {
         x += velX;
 
         // x-coordinate boundary
-        x = GameMain.clamp((int)x, 0, GameMain.WIDTH - PADDLE_WIDTH);
+        x = GameMain.clamp((int)x, 0, GameMain.WINDOW_WIDTH - PADDLE_WIDTH);
         
         //player character
         handler.addObject(new RenderObject((int)x, 0, ID.Player, Color.white, PADDLE_X, PADDLE_Y, handler));
