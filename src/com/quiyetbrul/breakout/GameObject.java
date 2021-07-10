@@ -7,11 +7,13 @@ public abstract class GameObject {
     //constructor + mutator and accessor
     //takes care of the values in the x and y direction
     //takes care of speed in the x and y direction
-    
+
+    // protected: only access by THE object that inherits GameObject
     protected float x, y;
     protected ID id;
     protected float velX, velY;
 
+    // constructor for a game object
     public GameObject(float x, float y, ID id) {
         this.x = x;
         this.y = y;
@@ -20,6 +22,7 @@ public abstract class GameObject {
 
     public abstract void tick();
 
+    // renders the object
     public abstract void render(Graphics g);
     
     public abstract Rectangle getBounds();
@@ -40,7 +43,7 @@ public abstract class GameObject {
         return y;
     }
 
-    // game ID, for collision
+    // game ID, for collision, collider
     public void setId(ID id) {
         this.id = id;
     }
