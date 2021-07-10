@@ -11,10 +11,10 @@ public class GameMain extends Canvas implements Runnable {
     public static final int WINDOW_WIDTH = 640, WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; // 16x9 ratio
 
     // paddle starting point
-    public static final int PADDLE_X = 210, PADDLE_Y = 410;
+    public static int PADDLE_X = 250, PADDLE_Y = 410;
 
     // ball starting point
-    public static final int BALL_X = 210, BALL_Y = 250;
+    public static int BALL_X = 310, BALL_Y = 250;
 
     private Thread thread;
     private boolean running = false;
