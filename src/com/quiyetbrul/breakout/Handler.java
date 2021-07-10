@@ -3,6 +3,9 @@ package com.quiyetbrul.breakout;
 import java.awt.*;
 import java.util.*;
 
+
+// handles all of objects in game concurrently
+// individually updates and renders objects to the screen
 public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<>();
