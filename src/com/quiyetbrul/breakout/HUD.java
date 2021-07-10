@@ -8,7 +8,7 @@ public class HUD {
     private int score = 0;
     
     public void tick(){
-        LIVES = GameMain.clamp(LIVES, 0, 100);
+        LIVES = GameMain.clamp(LIVES, 0, 5);
         // create  collision. once ball bounces, brick disappears and score goes up by one
         // score++;
     }
