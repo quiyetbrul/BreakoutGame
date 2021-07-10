@@ -14,8 +14,8 @@ public abstract class GameObject {
     protected ID id;
 
     // constructor for a game object
-    public GameObject(float x, float y_coordinate, ID id) {
-        this.x_coordinate = x;
+    public GameObject(float x_coordinate, float y_coordinate, ID id) {
+        this.x_coordinate = x_coordinate;
         this.y_coordinate = y_coordinate;
         this.id = id;
     }
