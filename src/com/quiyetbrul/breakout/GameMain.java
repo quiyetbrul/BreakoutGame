@@ -8,7 +8,7 @@ public class GameMain extends Canvas implements Runnable {
     private static final long serialVersionUID = 4730308219818161523L;
 
     // screen size
-    public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9; // 16x9 ratio
+    public static final int WINDOW_WIDTH = 640, WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; // 16x9 ratio
 
     // paddle starting point
     public static final int PADDLE_X = 210, PADDLE_Y = 400;
@@ -33,7 +33,7 @@ public class GameMain extends Canvas implements Runnable {
         this.addMouseListener(menu);
         this.addKeyListener(new KeyInput(handler));
 
-        new Window(WIDTH, HEIGHT, "BREAKOUT GAME BY QUIYET BRUL", this);
+        new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "BREAKOUT GAME BY QUIYET BRUL", this);
 
         if (gameStart == GAME_STATE.Game) {
             handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
@@ -58,7 +58,8 @@ public class GameMain extends Canvas implements Runnable {
     }
 
     /*
-    // fps // game loops
+    // fps for the game that loops over the code
+
     // research part: renders game as fast as it can
     // resolves large amount of collisions per frame, dragging the performance.
     // calls tick() at a steady frequency to make the game stable
@@ -118,17 +119,17 @@ public class GameMain extends Canvas implements Runnable {
         }
     }
 
-    // screen
+    // renders background, game state
     private void render() {
-        BufferStrategy bs = this.getBufferStrategy();
+        BufferStrategy bs = this.getBufferStrategy(); // starts value at null
         if (bs == null) {
-            this.createBufferStrategy(3);
+            this.createBufferStrategy(3); // 3: buffer creations
             return;
         }
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.setColor(Color.black); // stops flashing background
+        g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         handler.render(g);
 
