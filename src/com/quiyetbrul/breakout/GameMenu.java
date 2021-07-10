@@ -25,6 +25,7 @@ public class GameMenu extends MouseAdapter {
 
         //play button
         if (mouseOver(mx, my, 210, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
+            hud.setScore(0);
             game.gameStart = GameMain.GAME_STATE.Game;
             handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
             handler.addObject(new Ball(BALL_X, BALL_Y, ID.Ball, handler));
@@ -83,13 +84,17 @@ public class GameMenu extends MouseAdapter {
 
     public void render(Graphics g) {
 
+        final String fontName = "Arial";
+        final int style = 1;
+        final Font fnt1 = new Font(fontName, style, 50);
+        final Font fnt2 = new Font(fontName, style, 30);
+        final Font fnt3 = new Font(fontName, style, 15);
+        final Font fnt4 = new Font(fontName, style, 8);
+        final Font fnt5 = new Font(fontName, style, 7);
+
         if (null != game.gameStart) switch (game.gameStart) {
             case Menu:{
-
-                Font fnt = new Font("Arial", 1, 50);
-                Font fnt2 = new Font("Arial", 1, 30);
-                
-                g.setFont(fnt);
+                g.setFont(fnt1);
                 g.setColor(Color.WHITE);
                 g.drawString("BREAKOUT", 190, 70);
                 
@@ -104,17 +109,11 @@ public class GameMenu extends MouseAdapter {
                     break;
                 }
             case Help:{
-                Font fnt = new Font("Arial", 1, 50);
-                Font fnt2 = new Font("Arial", 1, 15);
-                Font fnt3 = new Font("Arial", 1, 30);
-                Font fnt4 = new Font("Arial", 1, 8);
-                Font fnt5 = new Font("Arial", 1, 7);
-                
-                g.setFont(fnt);
+                g.setFont(fnt1);
                 g.setColor(Color.WHITE);
                 g.drawString("Help", 250, 70);
                 
-                g.setFont(fnt2);
+                g.setFont(fnt3);
                 g.drawString("use the keys A and D to move the paddle.", 30, 200);
                 g.drawString("dont let the ball fall through bottom edge.", 30, 220);
 
@@ -124,16 +123,13 @@ public class GameMenu extends MouseAdapter {
                 g.setFont(fnt5);
                 g.drawString("haah ah haha ha", 35, 320);
                 
-                g.setFont(fnt3);
+                g.setFont(fnt2);
                 g.drawRect(210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 g.drawString("Back", 240, 400);
                     break;
                 }
             case GameOver:{
-                Font fnt = new Font("Arial", 1, 50);
-                Font fnt2 = new Font("Arial", 1, 30);
-                
-                g.setFont(fnt);
+                g.setFont(fnt1);
                 g.setColor(Color.WHITE);
                 g.drawString("Game Over", 190, 70);
                 
