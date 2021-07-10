@@ -1,10 +1,13 @@
 package com.quiyetbrul.breakout;
 
+import static com.quiyetbrul.breakout.GameMain.*;
+
 import java.awt.event.*;
 
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
+    private GameMain game;
     private boolean[] keyDown = new boolean[4];
 
     public KeyInput(Handler handler) {
@@ -22,12 +25,18 @@ public class KeyInput extends KeyAdapter {
 
             if (tempObject.getId() == ID.Player) {
                 switch (key) {
-                    case KeyEvent.VK_D: tempObject.setVelX(5); keyDown[1] = true; break;
-                    case KeyEvent.VK_A: tempObject.setVelX(-5); keyDown[2] = true; break;
+                    case KeyEvent.VK_D: tempObject.setVelX(10); keyDown[1] = true; break;
+                    case KeyEvent.VK_A: tempObject.setVelX(-10); keyDown[2] = true; break;
                     default: break;
                 }
             }
         }
+
+        // shortcut to gameplay buggy
+        // i dont want to add game objects here again
+//        if(key == KeyEvent.VK_SPACE){
+//            game.gameStart = GameMain.GAME_STATE.Game;
+//        }
 
         // escape the game anytime
         if (key == KeyEvent.VK_ESCAPE) {
