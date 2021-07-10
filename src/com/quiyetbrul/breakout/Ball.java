@@ -7,6 +7,7 @@ import java.awt.*;
 public class Ball extends GameObject{
 
     private Handler handler;
+    private Player player;
     private HUD hud;
 
     private final int BALL_WIDTH = 10;
@@ -35,8 +36,8 @@ public class Ball extends GameObject{
         y_coordinate += getVelY();
 
         // bounce on LTR edge for now
-        if(y_coordinate <=0) velY *= -1;
-        if(x_coordinate <=0 || x_coordinate >= GameMain.WINDOW_WIDTH - 20) velX *= -1;
+        bounceOnWall();
+
 
         // each time ball goes beyond bottom edge, ball gets destroyed
         // lives > 0 ? add ball
@@ -48,16 +49,25 @@ public class Ball extends GameObject{
             if(gameStart == GAME_STATE.GameOver)
                 handler.removeObject(this);
         }
-//        collision();
+//        bounceOnPaddle();
     }
 
-//    private void collision(){
+    private void bounceOnWall(){
+        // remove || y_coordinate >= WINDOW_HEIGHT - 50 for the ball not to bounce on bottom edge
+        if(y_coordinate <=0 || y_coordinate >= WINDOW_HEIGHT - 50) velY *= -1;
+        if(x_coordinate <=0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
+    }
+
+//    private void bounceOnPaddle(){
 //        for(int i = 0; i < handler.object.size(); i++){
 //            GameObject player = handler.object.get(i);
 //
+//            if(player.getX_coordinate())
+//
 //            if(player.getId() == ID.Ball){
 //                if(getBounds().intersects(player.getBounds())){
-//                    HUD.HEALTH -= 2;
+//                    velX *= -1;
+//                    velY *= -1;
 //                }
 //            }
 //        }
