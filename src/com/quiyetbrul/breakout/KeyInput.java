@@ -25,8 +25,8 @@ public class KeyInput extends KeyAdapter {
 
             if (tempObject.getId() == ID.Player) {
                 switch (key) {
-                    case KeyEvent.VK_D: tempObject.setVelX(10); keyDown[1] = true; break;
-                    case KeyEvent.VK_A: tempObject.setVelX(-10); keyDown[2] = true; break;
+                    case KeyEvent.VK_D: tempObject.setVelX(7); keyDown[1] = true; break;
+                    case KeyEvent.VK_A: tempObject.setVelX(-7); keyDown[2] = true; break;
                     default: break;
                 }
             }
