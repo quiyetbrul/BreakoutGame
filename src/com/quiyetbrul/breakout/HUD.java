@@ -14,6 +14,7 @@ public class HUD {
     }
     
     public void render (Graphics g){
+        g.setColor(Color.GREEN);
         g.drawString("LIVES: " + LIVES + "     SCORE: " + getScore(), 15, 25);
     }
     
