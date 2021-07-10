@@ -27,8 +27,6 @@ public class Player extends GameObject {
         x = GameMain.clamp((int)x, 0, GameMain.WINDOW_WIDTH - PADDLE_WIDTH);
     }
 
-
-
     public void render(Graphics g) {
         // renders paddle
         g.setColor(Color.white);
