@@ -10,9 +10,7 @@ public class GameMenu extends MouseAdapter {
     private GameMain game;
     private Handler handler;
     private HUD hud;
-
-
-
+    
     public GameMenu(GameMain game, Handler handler, HUD hud) {
         this.game = game;
         this.handler = handler;
@@ -26,8 +24,9 @@ public class GameMenu extends MouseAdapter {
         //play button
         if (mouseOver(mx, my, 210, 150, 200, 64)) {
             game.gameStart = GameMain.GAME_STATE.Game;
+            handler.ScreenClear();
             handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
-
+            handler.addObject(new Ball(210, 250, ID.Ball, handler));
         }
 
         //help button
@@ -52,8 +51,12 @@ public class GameMenu extends MouseAdapter {
             if (mouseOver(mx, my, 210, 350, 200, 64)) {
                 hud.setScore(0);
                 game.gameStart = GameMain.GAME_STATE.Game;
+                handler.ScreenClear();
                 handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
+                handler.addObject(new Ball(210, 250, ID.Ball, handler));
             }
+
+            // maybe add a back-to-menu button
         }
 
         //quit button
