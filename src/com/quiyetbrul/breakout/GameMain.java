@@ -11,7 +11,7 @@ public class GameMain extends Canvas implements Runnable {
     public static final int WINDOW_WIDTH = 640, WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; // 16x9 ratio
 
     // paddle starting point
-    public static final int PADDLE_X = 210, PADDLE_Y = 400;
+    public static final int PADDLE_X = 210, PADDLE_Y = 410;
 
     private Thread thread;
     private boolean running = false;
@@ -34,10 +34,6 @@ public class GameMain extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler));
 
         new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "BREAKOUT GAME BY QUIYET BRUL", this);
-
-        if (gameStart == GAME_STATE.Game) {
-            handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
-        }
     }
 
     public synchronized void start() {
@@ -109,13 +105,13 @@ public class GameMain extends Canvas implements Runnable {
             menu.tick();
 
             // determines user health + game over
-//            if (HUD.LIVES <= 0) {
-//                HUD.LIVES = 5;
-//                gameStart = GAME_STATE.GameOver;
-//                handler.ScreenClear();
-//            } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.GameOver) {
-//                menu.tick();
-//            }
+            if (HUD.LIVES <= 0) {
+                HUD.LIVES = 5;
+                handler.ScreenClear();
+                gameStart = GAME_STATE.GameOver;
+            } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.GameOver) {
+                menu.tick();
+            }
         }
     }
 
