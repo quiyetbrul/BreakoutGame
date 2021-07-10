@@ -13,6 +13,9 @@ public class GameMain extends Canvas implements Runnable {
     // paddle starting point
     public static final int PADDLE_X = 210, PADDLE_Y = 410;
 
+    // ball starting point
+    public static final int BALL_X = 210, BALL_Y = 250;
+
     private Thread thread;
     private boolean running = false;
 
@@ -26,28 +29,33 @@ public class GameMain extends Canvas implements Runnable {
 
     public static GAME_STATE gameStart = GAME_STATE.Menu;
 
-    public GameMain() {
+    private void init(){
         handler = new Handler();
         hud = new HUD();
         menu = new GameMenu(this, handler, hud);
+    }
+
+    public GameMain() {
+        init();
+
         this.addMouseListener(menu);
         this.addKeyListener(new KeyInput(handler));
 
         new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "BREAKOUT GAME BY QUIYET BRUL", this);
     }
 
+    // initialize multiple thread
     public synchronized void start() {
-        // initialize multiple thread
         thread = new Thread(this);
         thread.start();
         running = true;
     }
 
+    // halts threads, ends the app
     public synchronized void stop() {
         try {
             thread.join();
             running = false;
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -104,10 +112,9 @@ public class GameMain extends Canvas implements Runnable {
             hud.tick();
             menu.tick();
 
-            // determines user health + game over
+            // determines player lives + game over
             if (HUD.LIVES <= 0) {
                 HUD.LIVES = 5;
-                handler.ScreenClear();
                 gameStart = GAME_STATE.GameOver;
             } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.GameOver) {
                 menu.tick();
@@ -117,9 +124,10 @@ public class GameMain extends Canvas implements Runnable {
 
     // renders background, game state
     private void render() {
+        final int numBuffers = 3;
         BufferStrategy bs = this.getBufferStrategy(); // starts value at null
         if (bs == null) {
-            this.createBufferStrategy(3); // 3: buffer creations
+            this.createBufferStrategy(numBuffers); // 3: buffer creations
             return;
         }
         Graphics g = bs.getDrawGraphics();
