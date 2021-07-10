@@ -9,14 +9,14 @@ public abstract class GameObject {
     //takes care of speed in the x and y direction
 
     // protected: only access by THE object that inherits GameObject
-    protected float x, y;
-    protected ID id;
+    protected float x_coordinate, y_coordinate;
     protected float velX, velY;
+    protected ID id;
 
     // constructor for a game object
-    public GameObject(float x, float y, ID id) {
-        this.x = x;
-        this.y = y;
+    public GameObject(float x, float y_coordinate, ID id) {
+        this.x_coordinate = x;
+        this.y_coordinate = y_coordinate;
         this.id = id;
     }
 
@@ -28,19 +28,19 @@ public abstract class GameObject {
     public abstract Rectangle getBounds();
 
     // x-coordinate
-    public void setX(float x) {
-        this.x = x;
+    public void setX_coordinate(float x_coordinate) {
+        this.x_coordinate = x_coordinate;
     }
-    public float getX() {
-        return x;
+    public float getX_coordinate() {
+        return x_coordinate;
     }
 
     // y-coordinate
-    public void setY(float y) {
-        this.y = y;
+    public void setY_coordinate(float y_coordinate) {
+        this.y_coordinate = y_coordinate;
     }
-    public float getY() {
-        return y;
+    public float getY_coordinate() {
+        return y_coordinate;
     }
 
     // game ID, for collision, collider
