@@ -25,10 +25,6 @@ public class Ball extends GameObject{
         return new Rectangle((int) x_coordinate, (int) y_coordinate, BALL_WIDTH, BALL_HEIGHT);
     }
 
-    //// BALL BOUNCE
-    // ball x-coordinate == PADDLE_X && y-coordinate = PADDLE_Y
-    // ball bounces;
-
     @Override
     public void tick() {
         // updates x,y coordinates in accordance to velocity
