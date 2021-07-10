@@ -10,7 +10,7 @@ public class GameMenu extends MouseAdapter {
     private GameMain game;
     private Handler handler;
     private HUD hud;
-    
+
     public GameMenu(GameMain game, Handler handler, HUD hud) {
         this.game = game;
         this.handler = handler;
@@ -45,7 +45,7 @@ public class GameMenu extends MouseAdapter {
         }
         
         //try again button
-        else if (game.gameStart == GameMain.GAME_STATE.GameOver) {
+        else if (game.gameStart == GameMain.GAME_STATE.GameOver || game.gameStart == GAME_STATE.GameVictory) {
 
             // clicks on try again
             if (mouseOver(mx, my, 210, 350, 200, 64)) {
