@@ -21,7 +21,7 @@ public class GameMain extends Canvas implements Runnable {
     private GameMenu menu;
 
     public enum GAME_STATE {
-        Menu, Help, Game, GameOver
+        Menu, Help, Game, GameOver, GameVictory
     }
 
     public static GAME_STATE gameStart = GAME_STATE.Menu;
