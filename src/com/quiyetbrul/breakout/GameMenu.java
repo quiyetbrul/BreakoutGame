@@ -28,7 +28,7 @@ public class GameMenu extends MouseAdapter {
             hud.setScore(0);
             game.gameStart = GameMain.GAME_STATE.Game;
             handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
-            handler.addObject(new Ball(BALL_X, BALL_Y, ID.Ball, handler));
+            handler.addObject(new Ball(PADDLE_X+40, PADDLE_Y-10, ID.Ball, handler));
         }
 
         //help button
@@ -70,9 +70,9 @@ public class GameMenu extends MouseAdapter {
     }
 
     // hover area
-    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
-        if (mx > x && mx < x + width) {
-            return my > y && my < y + height;
+    private boolean mouseOver(int mx, int my, int x_coordinate, int y_coordinate, int width, int height) {
+        if (mx > x_coordinate && mx < x_coordinate + width) {
+            return my > y_coordinate && my < y_coordinate + height;
         } else {
             return false;
         }
