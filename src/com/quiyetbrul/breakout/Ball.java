@@ -10,6 +10,14 @@ public class Ball extends GameObject{
     private Player player;
     private HUD hud;
 
+    // ball starting point
+    /*
+     * how to make it dynamic? ball goes where paddle is
+     * */
+    // redundant since paddle x,y coordinates are used
+    // public static float BALL_X = 310;
+    // public static float BALL_Y = 250;
+
     private final int BALL_WIDTH = 10;
     private final int BALL_HEIGHT = 10;
 
@@ -33,14 +41,14 @@ public class Ball extends GameObject{
 
         // PROBLEM: ball only gets redirected in a slant direction
 
+        // hits and destroys bricks
+        // adds score
+        hitBrick();
+
         // bounce on LTR edge for now
         bounceOnWall();
         // bounce on paddle
         bounceOnPaddle();
-
-        // hits and destroys bricks
-        // adds score
-        hitBrick();
 
         // each time ball goes beyond bottom edge, ball gets destroyed
         // lives > 0 ? add ball
@@ -62,8 +70,8 @@ public class Ball extends GameObject{
 
                     // add score
                     // this does not work
-                    // int score = 0;
-                    // hud.setScore(score+1);
+                    // int score; score+1;
+                    // hud.setScore(score);
                     hud.score++; // once setScore is figured out, change score to private in HUD
                 }
             }
@@ -87,6 +95,10 @@ public class Ball extends GameObject{
     }
 
     private void bounceOnWall(){
+        // clamp not working when the ball falls through bottom edge
+        // x_coordinate = GameMain.clamp((int) x_coordinate, 0, WINDOW_WIDTH - BALL_WIDTH);
+        // y_coordinate = GameMain.clamp((int) y_coordinate, 0, WINDOW_HEIGHT - BALL_HEIGHT);
+
         // remove || y_coordinate >= WINDOW_HEIGHT - 50 to remove bottom wall
         if(y_coordinate <=0 /*|| y_coordinate >= WINDOW_HEIGHT - 50*/) velY *= -1;
         if(x_coordinate <=0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
@@ -98,7 +110,7 @@ public class Ball extends GameObject{
 
             if(tempObject.getId() == ID.Player){
                 if(getBounds().intersects(tempObject.getBounds())){
-//                     velX *= -1; // keep velX, change velY -> makes physics more natural
+                    // velX *= -1; // keep velX, change velY -> makes physics more natural
                     velY *= -1;
                 }
             }
