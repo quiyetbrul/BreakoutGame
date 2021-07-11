@@ -11,7 +11,15 @@ public class GameMenu extends MouseAdapter {
     private Handler handler;
     private HUD hud;
 
+    private Player player;
+    private Brick brick;
+    private Ball ball;
+
     private final int CLICKABLE_WIDTH = 200, CLICKABLE_HEIGHT = 60;
+    private final int SPACER = 5;
+    private final int ROWS = 8;
+    private final int BRICK_SPACE_X = Brick.BRICK_WIDTH + SPACER; // brick_width + desired space between bricks
+    private final int BRICK_SPACE_Y = Brick.BRICK_HEIGHT + SPACER;
 
     public GameMenu(GameMain game, Handler handler, HUD hud) {
         this.game = game;
@@ -26,9 +34,32 @@ public class GameMenu extends MouseAdapter {
         //play button
         if (mouseOver(mx, my, 210, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
             hud.setScore(0);
+
             game.gameStart = GameMain.GAME_STATE.Game;
 
-            handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
+            // PADDLE
+            handler.addObject(new Player(player.PADDLE_X, player.PADDLE_Y, ID.Player, handler));
+
+            // ROWS OF BRICKS
+            // NOTES FOR WINDOW HEIGHT
+            /*
+            * WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; (algo for a 16x9 ration)
+            * in this instance, WINDOW_HEIGHT is ~480
+            *
+            * BRICK_HEIGHT = 20
+            *
+            * I NEED 8 ROWS OF BRICKS -> BRICK_HEIGHT * 8 = 160 (minimum space for 8 rows of bricks needed)
+            * HALF OF THE WINDOW HEIGHT IS 240
+            * NEEDED SPACE OF THE FRAME IS 200 (minimum height + number of rows * spacer)
+            * */
+
+            //x_rep is where the brick starts in each row
+            //y_rep is where the brick starts in each col
+            for(int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT/2)-(ROWS* SPACER); y_rep+=BRICK_SPACE_Y)
+                for(int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH-(brick.BRICK_WIDTH); x_rep += BRICK_SPACE_X)
+                    handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+
+            // BALL STARTS ON TOP OF THE PADDLE // STATIC
             for(int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
                 if (tempObject.getId() == ID.Player) {
@@ -55,8 +86,15 @@ public class GameMenu extends MouseAdapter {
             // clicks on try again
             if (mouseOver(mx, my, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
                 hud.setScore(0);
+
                 game.gameStart = GameMain.GAME_STATE.Game;
-                handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
+
+                handler.addObject(new Player(player.PADDLE_X, player.PADDLE_Y, ID.Player, handler));
+
+                for(int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT/2)-(ROWS* SPACER); y_rep+=BRICK_SPACE_Y)
+                    for(int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH-(brick.BRICK_WIDTH); x_rep += BRICK_SPACE_X)
+                        handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+
                 for(int i = 0; i < handler.object.size(); i++) {
                     GameObject tempObject = handler.object.get(i);
                     if (tempObject.getId() == ID.Player) {
@@ -127,6 +165,7 @@ public class GameMenu extends MouseAdapter {
                 g.setFont(fnt3);
                 g.drawString("use the keys A and D to move the paddle.", 30, 200);
                 g.drawString("dont let the ball fall through bottom edge.", 30, 220);
+                g.drawString("press spacebar to launch the ball.", 30, 240);
 
                 g.setFont(fnt4);
                 g.drawString("henlo googlers plz hire me lol", 35, 310);
