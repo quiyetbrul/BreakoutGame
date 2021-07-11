@@ -6,16 +6,16 @@ public class HUD {
     
     public static int LIVES = 5;
     public static int score = 0;
+
+    public static float HUD_X = 15;
+    public static float HUD_Y = 440;
     
     public void tick(){
-        LIVES = GameMain.clamp(LIVES, 0, 5);
-        // create  collision. once ball bounces, brick disappears and score goes up by one
-        // score++;
     }
     
     public void render (Graphics g){
         g.setColor(Color.GREEN);
-        g.drawString("LIVES: " + LIVES + "     SCORE: " + getScore(), 15, 25);
+        g.drawString("LIVES: " + LIVES + "     SCORE: " + getScore(), (int)HUD_X, (int)HUD_Y);
     }
     
     public void setScore(int score){
