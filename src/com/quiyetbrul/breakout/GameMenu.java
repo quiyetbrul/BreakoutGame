@@ -55,8 +55,8 @@ public class GameMenu extends MouseAdapter {
 
             //x_rep is where the brick starts in each row
             //y_rep is where the brick starts in each col
-            for(int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT/2)-(ROWS* SPACER); y_rep+=BRICK_SPACE_Y)
-                for(int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH-(brick.BRICK_WIDTH); x_rep += BRICK_SPACE_X)
+            for(int y_rep=brick.BRICK_Y; y_rep < (WINDOW_HEIGHT/2)-(ROWS*SPACER); y_rep+=BRICK_SPACE_Y)
+                for(int x_rep=brick.BRICK_X; x_rep < WINDOW_WIDTH-brick.BRICK_WIDTH; x_rep+=BRICK_SPACE_X)
                     handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
 
             // BALL STARTS ON TOP OF THE PADDLE // STATIC
