@@ -3,11 +3,13 @@ package com.quiyetbrul.breakout;
 import static com.quiyetbrul.breakout.GameMain.*;
 
 import java.awt.event.*;
+import java.util.Random;
 
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
     private GameMain game;
+    private Ball ball;
     private boolean[] keyDown = new boolean[4];
 
     public KeyInput(Handler handler) {
@@ -15,6 +17,7 @@ public class KeyInput extends KeyAdapter {
 
         keyDown[1] = false;
         keyDown[2] = false;
+        keyDown[3] = false;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -30,13 +33,19 @@ public class KeyInput extends KeyAdapter {
                     default: break;
                 }
             }
+
+            if(tempObject.getId() == ID.Ball){
+                if(key == KeyEvent.VK_SPACE) keyDown[3] = true;///{ball.setVelX(5);ball.setVelY(5);}
+            }
         }
 
         // shortcut to gameplay buggy
         // i dont want to add game objects here again
-//        if(key == KeyEvent.VK_SPACE){
+//        if(key == KeyEvent.VK_ENTER){
 //            game.gameStart = GameMain.GAME_STATE.Game;
 //        }
+
+
 
         // escape the game anytime
         if (key == KeyEvent.VK_ESCAPE) {
@@ -60,6 +69,15 @@ public class KeyInput extends KeyAdapter {
 
                 if (!keyDown[1] && !keyDown[2]) {
                     tempObject.setVelX(0);
+                }
+            }
+            if (tempObject.getId() == ID.Ball) {
+                if (key == KeyEvent.VK_SPACE) {
+                    keyDown[3] = false;
+                    // so ball doesn't go to the same direction each start
+                    int rand = Math.round(Math.random()) == 1 ? -5 : 5;
+                    tempObject.setVelX(rand);
+                    tempObject.setVelY(5);
                 }
             }
         }
