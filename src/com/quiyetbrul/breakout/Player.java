@@ -9,6 +9,10 @@ public class Player extends GameObject {
     private Handler handler;
     private HUD hud;
 
+    // paddle starting point
+    public static float PADDLE_X = 250;
+    public static float PADDLE_Y = 410;
+
     private final int PADDLE_WIDTH = 100;
     private final int PADDLE_HEIGHT = 10;
 
