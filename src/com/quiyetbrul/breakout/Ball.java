@@ -31,41 +31,74 @@ public class Ball extends GameObject{
         x_coordinate += getVelX();
         y_coordinate += getVelY();
 
+        // PROBLEM: ball only gets redirected in a slant direction
+
         // bounce on LTR edge for now
         bounceOnWall();
-
         // bounce on paddle
         bounceOnPaddle();
 
+        // hits and destroys bricks
+        // adds score
+        hitBrick();
+
         // each time ball goes beyond bottom edge, ball gets destroyed
         // lives > 0 ? add ball
+        ballFalls();
+
+    }
+
+    private void hitBrick(){
+        for(int i = 0; i < handler.object.size(); i++){
+            GameObject tempObject = handler.object.get(i);
+
+            if(tempObject.getId() == ID.Brick){
+                if(getBounds().intersects(tempObject.getBounds())){
+                    // velX *= -1; // keep velX, change velY -> makes physics more natural
+                    velY *= -1;
+
+                    // destroy brick once hit
+                    handler.removeObject(tempObject);
+
+                    // add score
+                    // this does not work
+                    // int score = 0;
+                    // hud.setScore(score+1);
+                    hud.score++; // once setScore is figured out, change score to private in HUD
+                }
+            }
+        }
+    }
+
+    private void ballFalls(){
         if(y_coordinate >= WINDOW_HEIGHT) {
             hud.LIVES -= 1;
             handler.removeObject(this);
             if(hud.LIVES > 0)
-                handler.addObject(new Ball(BALL_X, BALL_Y, ID.Ball, handler));
+                for(int i = 0; i < handler.object.size(); i++) {
+                    GameObject tempObject = handler.object.get(i);
+                    if (tempObject.getId() == ID.Player) {
+                        handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
+                    }
+                }
             if(gameStart == GAME_STATE.GameOver)
                 handler.removeObject(this);
         }
-
     }
 
     private void bounceOnWall(){
         // remove || y_coordinate >= WINDOW_HEIGHT - 50 to remove bottom wall
-        // PROBLEM: ball only gets redirected in a slant direction
         if(y_coordinate <=0 /*|| y_coordinate >= WINDOW_HEIGHT - 50*/) velY *= -1;
         if(x_coordinate <=0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
     }
 
     private void bounceOnPaddle(){
         for(int i = 0; i < handler.object.size(); i++){
-            GameObject player = handler.object.get(i);
+            GameObject tempObject = handler.object.get(i);
 
-//            if(player.getX_coordinate())
-
-            if(player.getId() == ID.Player){
-                if(getBounds().intersects(player.getBounds())){
-//                    velX *= -1; // keep velX, change velY -> makes physics more natural
+            if(tempObject.getId() == ID.Player){
+                if(getBounds().intersects(tempObject.getBounds())){
+//                     velX *= -1; // keep velX, change velY -> makes physics more natural
                     velY *= -1;
                 }
             }
