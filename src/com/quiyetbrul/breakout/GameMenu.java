@@ -27,8 +27,14 @@ public class GameMenu extends MouseAdapter {
         if (mouseOver(mx, my, 210, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
             hud.setScore(0);
             game.gameStart = GameMain.GAME_STATE.Game;
+
             handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
-            handler.addObject(new Ball(PADDLE_X+40, PADDLE_Y-10, ID.Ball, handler));
+            for(int i = 0; i < handler.object.size(); i++) {
+                GameObject tempObject = handler.object.get(i);
+                if (tempObject.getId() == ID.Player) {
+                    handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
+                }
+            }
         }
 
         //help button
@@ -42,7 +48,7 @@ public class GameMenu extends MouseAdapter {
                 game.gameStart = GAME_STATE.Menu;
             }
         }
-        
+
         //try again button
         else if (game.gameStart == GameMain.GAME_STATE.GameOver || game.gameStart == GAME_STATE.GameVictory) {
 
@@ -51,7 +57,12 @@ public class GameMenu extends MouseAdapter {
                 hud.setScore(0);
                 game.gameStart = GameMain.GAME_STATE.Game;
                 handler.addObject(new Player(PADDLE_X, PADDLE_Y, ID.Player, handler));
-                handler.addObject(new Ball(BALL_X, BALL_Y, ID.Ball, handler));
+                for(int i = 0; i < handler.object.size(); i++) {
+                    GameObject tempObject = handler.object.get(i);
+                    if (tempObject.getId() == ID.Player) {
+                        handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
+                    }
+                }
             }
 
             // maybe add a back-to-menu button
