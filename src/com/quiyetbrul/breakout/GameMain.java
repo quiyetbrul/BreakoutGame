@@ -15,9 +15,12 @@ public class GameMain extends Canvas implements Runnable {
     public static float PADDLE_Y = 410;
 
     // ball starting point
-    // maybe change this to be on top of the paddle
-    public static float BALL_X = 310;
-    public static float BALL_Y = 250;
+    /*
+    * how to make it dynamic? ball goes where paddle is
+    * */
+    // redundant since paddle x,y coordinates are used
+    // public static float BALL_X = 310;
+    // public static float BALL_Y = 250;
 
     private Thread thread;
     private boolean running = false;
