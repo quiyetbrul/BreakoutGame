@@ -12,8 +12,9 @@ public class Player extends GameObject {
     private final int PADDLE_WIDTH = 100;
     private final int PADDLE_HEIGHT = 10;
 
-    public Player(int x, int y, ID id, Handler handler) {
-        super(x, y, id);
+    public Player(float x_coordinate, float y_coordinate, ID id, Handler handler) {
+        super(x_coordinate, y_coordinate, id);
+
         this.handler = handler;
     }
     
