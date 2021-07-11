@@ -11,8 +11,8 @@ public class Brick extends GameObject{
     private Player player;
     private HUD hud;
 
-    public final int BRICK_WIDTH = 50;
-    public final int BRICK_HEIGHT = 20;
+    public static final int BRICK_WIDTH = 50;
+    public static final int BRICK_HEIGHT = 20;
 
     public static int BRICK_X = 15;
     public static int BRICK_Y = 15;
