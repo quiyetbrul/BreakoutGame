@@ -13,12 +13,12 @@ public class Ball extends GameObject{
     private final int BALL_WIDTH = 10;
     private final int BALL_HEIGHT = 10;
 
-    public Ball(int x, int y, ID id, Handler handler){
-        super(x, y, id);
+    public Ball(float x_coordinate, float y_coordinate, ID id, Handler handler) {
+        super(x_coordinate, y_coordinate, id);
 
         this.handler = handler;
 
-        setVelX(5); setVelY(5);
+        setVelX(0); setVelY(0);
     }
 
     public Rectangle getBounds(){
@@ -35,7 +35,7 @@ public class Ball extends GameObject{
         bounceOnWall();
 
         // bounce on paddle
-         bounceOnPaddle();
+        bounceOnPaddle();
 
         // each time ball goes beyond bottom edge, ball gets destroyed
         // lives > 0 ? add ball
@@ -52,7 +52,8 @@ public class Ball extends GameObject{
 
     private void bounceOnWall(){
         // remove || y_coordinate >= WINDOW_HEIGHT - 50 to remove bottom wall
-        if(y_coordinate <=0 || y_coordinate >= WINDOW_HEIGHT - 50) velY *= -1;
+        // PROBLEM: ball only gets redirected in a slant direction
+        if(y_coordinate <=0 /*|| y_coordinate >= WINDOW_HEIGHT - 50*/) velY *= -1;
         if(x_coordinate <=0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
     }
 
