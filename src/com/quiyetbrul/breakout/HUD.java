@@ -5,7 +5,7 @@ import java.awt.*;
 public class HUD {
     
     public static int LIVES = 5;
-    private int score = 0;
+    public static int score = 0;
     
     public void tick(){
         LIVES = GameMain.clamp(LIVES, 0, 5);
