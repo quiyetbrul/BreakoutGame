@@ -10,18 +10,6 @@ public class GameMain extends Canvas implements Runnable {
     // screen size
     public static final int WINDOW_WIDTH = 640, WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; // 16x9 ratio
 
-    // paddle starting point
-    public static float PADDLE_X = 250;
-    public static float PADDLE_Y = 410;
-
-    // ball starting point
-    /*
-    * how to make it dynamic? ball goes where paddle is
-    * */
-    // redundant since paddle x,y coordinates are used
-    // public static float BALL_X = 310;
-    // public static float BALL_Y = 250;
-
     private Thread thread;
     private boolean running = false;
 
