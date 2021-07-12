@@ -8,12 +8,11 @@ import static com.quiyetbrul.breakout.GameMain.gameStart;
 public class Player extends GameObject {
 
     // paddle starting point
-    public static float PADDLE_X = 250;
-    public static float PADDLE_Y = 410;
+    public static final float PADDLE_X = 250;
+    public static final float PADDLE_Y = 410;
     private final int PADDLE_WIDTH = 100;
     private final int PADDLE_HEIGHT = 10;
     private final Handler handler;
-    private HUD hud;
 
     public Player(float x_coordinate, float y_coordinate, ID id, Handler handler) {
         super(x_coordinate, y_coordinate, id);

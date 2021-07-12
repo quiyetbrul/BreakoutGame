@@ -6,8 +6,6 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter {
 
     private final Handler handler;
-    private GameMain game;
-    private Ball ball;
     private final boolean[] keyDown = new boolean[4];
 
     public KeyInput(Handler handler) {

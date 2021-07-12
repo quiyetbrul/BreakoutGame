@@ -4,11 +4,10 @@ import java.awt.*;
 
 public class HUD {
 
+    public static final float HUD_X = 15;
+    public static final float HUD_Y = 440;
     public static int LIVES = 5;
     public static int score = 0;
-
-    public static float HUD_X = 15;
-    public static float HUD_Y = 440;
 
     public void tick() {
     }

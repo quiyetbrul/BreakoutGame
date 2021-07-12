@@ -13,12 +13,9 @@ public class GameMenu extends MouseAdapter {
     private final int ROWS = 8;
     private final int BRICK_SPACE_X = Brick.BRICK_WIDTH + SPACER; // brick_width + desired space between bricks
     private final int BRICK_SPACE_Y = Brick.BRICK_HEIGHT + SPACER;
-    private GameMain game;
-    private Handler handler;
-    private HUD hud;
-    private Player player;
-    private Brick brick;
-    private Ball ball;
+    private final GameMain game;
+    private final Handler handler;
+    private final HUD hud;
 
     public GameMenu(GameMain game, Handler handler, HUD hud) {
         this.game = game;
@@ -34,10 +31,10 @@ public class GameMenu extends MouseAdapter {
         if (mouseOver(mx, my, 210, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
             hud.setScore(0);
 
-            game.gameStart = GameMain.GAME_STATE.Game;
+            gameStart = GameMain.GAME_STATE.Game;
 
             // PADDLE
-            handler.addObject(new Player(player.PADDLE_X, player.PADDLE_Y, ID.Player, handler));
+            handler.addObject(new Player(Player.PADDLE_X, Player.PADDLE_Y, ID.Player, handler));
 
             // ROWS OF BRICKS
             // NOTES FOR WINDOW HEIGHT
@@ -54,8 +51,8 @@ public class GameMenu extends MouseAdapter {
 
             //x_rep is where the brick starts in each row
             //y_rep is where the brick starts in each col
-            for (int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
-                for (int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH - brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
+            for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
+                for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
                     handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
                 }
             }
@@ -71,30 +68,32 @@ public class GameMenu extends MouseAdapter {
 
         //help button
         else if (mouseOver(mx, my, 210, 250, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
-            game.gameStart = GameMain.GAME_STATE.Help;
+            gameStart = GameMain.GAME_STATE.Help;
         }
 
         //back button for help
-        else if (game.gameStart == GAME_STATE.Help) {
+        else if (gameStart == GAME_STATE.Help) {
             if (mouseOver(mx, my, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
-                game.gameStart = GAME_STATE.Menu;
+                gameStart = GAME_STATE.Menu;
             }
         }
 
         //try again button
-        else if (game.gameStart == GameMain.GAME_STATE.GameOver || game.gameStart == GAME_STATE.GameVictory) {
+        else if (gameStart == GameMain.GAME_STATE.GameOver || gameStart == GAME_STATE.GameVictory) {
 
             // clicks on try again
             if (mouseOver(mx, my, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
                 hud.setScore(0);
 
-                game.gameStart = GameMain.GAME_STATE.Game;
+                gameStart = GameMain.GAME_STATE.Game;
 
-                handler.addObject(new Player(player.PADDLE_X, player.PADDLE_Y, ID.Player, handler));
+                handler.addObject(new Player(Player.PADDLE_X, Player.PADDLE_Y, ID.Player, handler));
 
-                for (int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y)
-                    for (int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH - (brick.BRICK_WIDTH); x_rep += BRICK_SPACE_X)
+                for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
+                    for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
                         handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+                    }
+                }
 
                 for (int i = 0; i < handler.object.size(); i++) {
                     GameObject tempObject = handler.object.get(i);
@@ -108,7 +107,7 @@ public class GameMenu extends MouseAdapter {
         }
 
         //quit button
-        else if (game.gameStart == GameMain.GAME_STATE.Menu) {
+        else if (gameStart == GameMain.GAME_STATE.Menu) {
             if (mouseOver(mx, my, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
                 System.exit(0);
             }
@@ -135,14 +134,13 @@ public class GameMenu extends MouseAdapter {
     public void render(Graphics g) {
 
         final String fontName = "Arial";
-        final int style = 1;
-        final Font fnt1 = new Font(fontName, style, 50);
-        final Font fnt2 = new Font(fontName, style, 30);
-        final Font fnt3 = new Font(fontName, style, 15);
-        final Font fnt4 = new Font(fontName, style, 8);
-        final Font fnt5 = new Font(fontName, style, 7);
+        final Font fnt1 = new Font(fontName, Font.BOLD, 50);
+        final Font fnt2 = new Font(fontName, Font.BOLD, 30);
+        final Font fnt3 = new Font(fontName, Font.BOLD, 15);
+        final Font fnt4 = new Font(fontName, Font.BOLD, 8);
+        final Font fnt5 = new Font(fontName, Font.BOLD, 7);
 
-        if (null != game.gameStart) switch (game.gameStart) {
+        if (null != gameStart) switch (gameStart) {
             case Menu: {
                 g.setFont(fnt1);
                 g.setColor(Color.WHITE);
@@ -190,6 +188,19 @@ public class GameMenu extends MouseAdapter {
 
                 g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 g.drawString("TRY AGAIN", 230, 400);
+                break;
+            }
+            case GameVictory: {
+                g.setFont(fnt1);
+                g.setColor(Color.WHITE);
+                g.drawString("VICTORY!", 190, 70);
+
+                g.setFont(fnt2);
+                g.drawString("You won!", 240, 180);
+                g.drawString("Score: " + hud.getScore(), 240, 250);
+
+                g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
+                g.drawString("PLAY AGAIN?", 230, 400);
                 break;
             }
             default:

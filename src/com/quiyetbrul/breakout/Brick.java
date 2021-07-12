@@ -7,22 +7,20 @@ import static com.quiyetbrul.breakout.GameMain.gameStart;
 
 public class Brick extends GameObject {
 
-    private final Handler handler;
-    private Player player;
-    private HUD hud;
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 20;
-    public static int BRICK_X = 15;
-    public static int BRICK_Y = 15;
-    private final Random r = new Random();
-    private final int red = r.nextInt(255);
-    private final int green = r.nextInt(255);
-    private final int blue = r.nextInt(255);
+    public static final int BRICK_X = 15;
+    public static final int BRICK_Y = 15;
+    private final Handler handler;
     private final Color col;
 
     public Brick(int x_coordinate, int y_coordinate, ID id, Handler handler) {
         super(x_coordinate, y_coordinate, id);
 
+        Random r = new Random();
+        int blue = r.nextInt(255);
+        int green = r.nextInt(255);
+        int red = r.nextInt(255);
         col = new Color(red, green, blue);
         this.handler = handler;
     }

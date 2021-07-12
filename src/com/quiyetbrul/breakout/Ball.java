@@ -17,14 +17,13 @@ public class Ball extends GameObject {
     // redundant since paddle x,y coordinates are used
     // public static float BALL_X = 310;
     // public static float BALL_Y = 250;
-    private Player player;
-    private HUD hud;
 
     public Ball(float x_coordinate, float y_coordinate, ID id, Handler handler) {
         super(x_coordinate, y_coordinate, id);
 
         this.handler = handler;
 
+        // starting ball velocity
         setVelX(0);
         setVelY(0);
     }

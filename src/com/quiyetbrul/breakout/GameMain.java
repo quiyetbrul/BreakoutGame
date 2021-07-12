@@ -9,11 +9,11 @@ public class GameMain extends Canvas implements Runnable {
     public static final int WINDOW_WIDTH = 640, WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; // 16x9 ratio
     private static final long serialVersionUID = 4730308219818161523L;
     public static GAME_STATE gameStart = GAME_STATE.Menu;
-    private Thread thread;
     private boolean running = false;
+    private Thread thread;
     private Handler handler;
-    private HUD hud;
     private GameMenu menu;
+    private HUD hud;
 
     public GameMain() {
         init();
@@ -22,6 +22,10 @@ public class GameMain extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler));
 
         new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "BREAKOUT GAME BY QUIYET BRUL", this);
+    }
+
+    public static void main(String[] args) {
+        new GameMain();
     }
 
     // Clamps the elapsed time from the game loop
@@ -40,10 +44,6 @@ public class GameMain extends Canvas implements Runnable {
         } else {
             return var;
         }
-    }
-
-    public static void main(String[] args) {
-        new GameMain();
     }
 
     private void init() {
@@ -79,7 +79,7 @@ public class GameMain extends Canvas implements Runnable {
     // improvement: avoid using System.currentTimeMillis() it is susceptible to
     // changing the system clock
 
-    // research other or create game loops that offer variable timestep but doesn't
+    // research other or create game loops that offer variable time step but doesn't
     // wreck game physics computations
 
     */
