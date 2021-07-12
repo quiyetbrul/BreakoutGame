@@ -73,11 +73,11 @@ Please find my progress from my personal [repo](https://github.com/quiyetbrul/Br
 
 ## TODO
 
-- Victory screen -- after the player breaks all bricks, a victory screen shows along with score
 - Clean up GameMenu.java -- it is a mess!
   - I've tried creating a class member for each game object (i.e., ball, paddle, brick), but it gave me errors
 - The ball sometimes gets stuck inside the paddle
 - The ball direction changes after pressing the spacebar after the ball launches
-  - the spacebar should only work 
-- The ball's starting point isn't dynamic
+  - the spacebar should only work when the ball is at its starting point
+  - The ball's starting point isn't dynamic -- it only takes in paddle's current x,y coordinates and doesn't change whenever the paddle changes position
+- The ball only moves in a slant direction
 
