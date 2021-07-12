@@ -33,7 +33,7 @@ public class Player extends GameObject {
         x_coordinate = GameMain.clamp((int) x_coordinate, 0, GameMain.WINDOW_WIDTH - PADDLE_WIDTH);
 
         // removes paddle when GameOver screen shows up
-        if (gameStart == GAME_STATE.GameOver) {
+        if (gameStart == GAME_STATE.GameOver || gameStart == GAME_STATE.GameVictory) {
             handler.removeObject(this);
         }
     }

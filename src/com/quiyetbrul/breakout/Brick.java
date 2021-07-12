@@ -3,7 +3,7 @@ package com.quiyetbrul.breakout;
 import java.awt.*;
 import java.util.Random;
 
-import static com.quiyetbrul.breakout.GameMain.gameStart;
+import static com.quiyetbrul.breakout.GameMain.*;
 
 public class Brick extends GameObject {
 
@@ -31,7 +31,7 @@ public class Brick extends GameObject {
 
     @Override
     public void tick() {
-        if (gameStart == GameMain.GAME_STATE.GameOver) {
+        if (gameStart == GAME_STATE.GameOver || gameStart == GAME_STATE.GameVictory) {
             handler.removeObject(this);
         }
     }

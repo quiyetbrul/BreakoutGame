@@ -13,6 +13,7 @@ public class GameMenu extends MouseAdapter {
     private final int ROWS = 8;
     private final int BRICK_SPACE_X = Brick.BRICK_WIDTH + SPACER; // brick_width + desired space between bricks
     private final int BRICK_SPACE_Y = Brick.BRICK_HEIGHT + SPACER;
+    public static int brick_count = 0;
     private final GameMain game;
     private final Handler handler;
     private final HUD hud;
@@ -54,8 +55,10 @@ public class GameMenu extends MouseAdapter {
             for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
                 for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
                     handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+                    brick_count++;
                 }
             }
+
 
             // BALL STARTS ON TOP OF THE PADDLE // STATIC
             for (int i = 0; i < handler.object.size(); i++) {
@@ -92,6 +95,7 @@ public class GameMenu extends MouseAdapter {
                 for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
                     for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
                         handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+                        brick_count++;
                     }
                 }
 
@@ -187,7 +191,7 @@ public class GameMenu extends MouseAdapter {
                 g.drawString("Score: " + hud.getScore(), 240, 250);
 
                 g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("TRY AGAIN", 230, 400);
+                g.drawString("AGAIN", 230, 400);
                 break;
             }
             case GameVictory: {
@@ -200,7 +204,7 @@ public class GameMenu extends MouseAdapter {
                 g.drawString("Score: " + hud.getScore(), 240, 250);
 
                 g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("PLAY AGAIN?", 230, 400);
+                g.drawString("AGAIN?", 230, 400);
                 break;
             }
             default:

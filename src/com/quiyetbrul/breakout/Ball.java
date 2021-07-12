@@ -72,8 +72,13 @@ public class Ball extends GameObject {
                     // int score; score+1;
                     // hud.setScore(score);
                     HUD.score++; // once setScore is figured out, change score to private in HUD
+                    GameMenu.brick_count--;
                 }
             }
+        }
+        if(GameMenu.brick_count <= 0){
+            gameStart = GAME_STATE.GameVictory;
+            handler.removeObject(this);
         }
     }
 
@@ -88,8 +93,10 @@ public class Ball extends GameObject {
                         handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
                     }
                 }
-            if (gameStart == GAME_STATE.GameOver)
+            if (HUD.LIVES < 0) {
+                gameStart = GAME_STATE.GameOver;
                 handler.removeObject(this);
+            }
         }
     }
 

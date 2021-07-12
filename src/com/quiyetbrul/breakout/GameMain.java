@@ -124,7 +124,7 @@ public class GameMain extends Canvas implements Runnable {
             if (HUD.LIVES <= 0) {
                 HUD.LIVES = 5;
                 gameStart = GAME_STATE.GameOver;
-            } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.GameOver) {
+            } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.GameOver || gameStart == GAME_STATE.GameVictory) {
                 menu.tick();
             }
         }
@@ -147,7 +147,7 @@ public class GameMain extends Canvas implements Runnable {
 
         if (gameStart == GAME_STATE.Game) {
             hud.render(g);
-        } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.Help || gameStart == GAME_STATE.GameOver) {
+        } else if (gameStart == GAME_STATE.Menu || gameStart == GAME_STATE.Help || gameStart == GAME_STATE.GameOver || gameStart == GAME_STATE.GameVictory) {
             menu.render(g);
         }
 
