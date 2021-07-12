@@ -1,0 +1,8 @@
+1. How did you break down the design of the game into smaller, managable tasks?
+2. How would you break it up so more than 1 person could work on it at a time?
+3. How would you modify the game to make it replayable? (i.e. people want to keep coming back to it)
+4. Summarize how your game works
+5. Explain the structure of your design and why it's architected that way (i.e. classes and subclasses and such)
+6. What do you think are the "next steps" for this game (e.g. improve code, add new features, idk)
+7. Explain your process for developing the game
+8. How would you monitize the game? 
