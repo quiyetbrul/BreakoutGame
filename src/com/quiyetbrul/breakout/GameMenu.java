@@ -1,25 +1,24 @@
 package com.quiyetbrul.breakout;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static com.quiyetbrul.breakout.GameMain.*;
 
 public class GameMenu extends MouseAdapter {
-
-    private GameMain game;
-    private Handler handler;
-    private HUD hud;
-
-    private Player player;
-    private Brick brick;
-    private Ball ball;
 
     private final int CLICKABLE_WIDTH = 200, CLICKABLE_HEIGHT = 60;
     private final int SPACER = 5;
     private final int ROWS = 8;
     private final int BRICK_SPACE_X = Brick.BRICK_WIDTH + SPACER; // brick_width + desired space between bricks
     private final int BRICK_SPACE_Y = Brick.BRICK_HEIGHT + SPACER;
+    private GameMain game;
+    private Handler handler;
+    private HUD hud;
+    private Player player;
+    private Brick brick;
+    private Ball ball;
 
     public GameMenu(GameMain game, Handler handler, HUD hud) {
         this.game = game;
@@ -43,24 +42,26 @@ public class GameMenu extends MouseAdapter {
             // ROWS OF BRICKS
             // NOTES FOR WINDOW HEIGHT
             /*
-            * WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; (algo for a 16x9 ration)
-            * in this instance, WINDOW_HEIGHT is ~480
-            *
-            * BRICK_HEIGHT = 20
-            *
-            * I NEED 8 ROWS OF BRICKS -> BRICK_HEIGHT * 8 = 160 (minimum space for 8 rows of bricks needed)
-            * HALF OF THE WINDOW HEIGHT IS 240
-            * NEEDED SPACE OF THE FRAME IS 200 (minimum height + number of rows * spacer)
-            * */
+             * WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; (algo for a 16x9 ration)
+             * in this instance, WINDOW_HEIGHT is ~480
+             *
+             * BRICK_HEIGHT = 20
+             *
+             * I NEED 8 ROWS OF BRICKS -> BRICK_HEIGHT * 8 = 160 (minimum space for 8 rows of bricks needed)
+             * HALF OF THE WINDOW HEIGHT IS 240
+             * NEEDED SPACE OF THE FRAME IS 200 (minimum height + number of rows * spacer)
+             * */
 
             //x_rep is where the brick starts in each row
             //y_rep is where the brick starts in each col
-            for(int y_rep=brick.BRICK_Y; y_rep < (WINDOW_HEIGHT/2)-(ROWS*SPACER); y_rep+=BRICK_SPACE_Y)
-                for(int x_rep=brick.BRICK_X; x_rep < WINDOW_WIDTH-brick.BRICK_WIDTH; x_rep+=BRICK_SPACE_X)
+            for (int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
+                for (int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH - brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
                     handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+                }
+            }
 
             // BALL STARTS ON TOP OF THE PADDLE // STATIC
-            for(int i = 0; i < handler.object.size(); i++) {
+            for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
                 if (tempObject.getId() == ID.Player) {
                     handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
@@ -91,11 +92,11 @@ public class GameMenu extends MouseAdapter {
 
                 handler.addObject(new Player(player.PADDLE_X, player.PADDLE_Y, ID.Player, handler));
 
-                for(int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT/2)-(ROWS* SPACER); y_rep+=BRICK_SPACE_Y)
-                    for(int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH-(brick.BRICK_WIDTH); x_rep += BRICK_SPACE_X)
+                for (int y_rep = brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y)
+                    for (int x_rep = brick.BRICK_X; x_rep < WINDOW_WIDTH - (brick.BRICK_WIDTH); x_rep += BRICK_SPACE_X)
                         handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
 
-                for(int i = 0; i < handler.object.size(); i++) {
+                for (int i = 0; i < handler.object.size(); i++) {
                     GameObject tempObject = handler.object.get(i);
                     if (tempObject.getId() == ID.Player) {
                         handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
@@ -142,11 +143,11 @@ public class GameMenu extends MouseAdapter {
         final Font fnt5 = new Font(fontName, style, 7);
 
         if (null != game.gameStart) switch (game.gameStart) {
-            case Menu:{
+            case Menu: {
                 g.setFont(fnt1);
                 g.setColor(Color.WHITE);
                 g.drawString("BREAKOUT", 190, 70);
-                
+
                 g.setFont(fnt2);
                 g.drawRect(220, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 g.drawString("Play", 230, 200);
@@ -155,13 +156,13 @@ public class GameMenu extends MouseAdapter {
 
                 g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 g.drawString("Esc = QUIT", 230, 400);
-                    break;
-                }
-            case Help:{
+                break;
+            }
+            case Help: {
                 g.setFont(fnt1);
                 g.setColor(Color.WHITE);
                 g.drawString("Help", 250, 70);
-                
+
                 g.setFont(fnt3);
                 g.drawString("use the keys A and D to move the paddle.", 30, 200);
                 g.drawString("dont let the ball fall through bottom edge.", 30, 220);
@@ -169,28 +170,28 @@ public class GameMenu extends MouseAdapter {
 
                 g.setFont(fnt4);
                 g.drawString("henlo googlers plz hire me lol", 35, 310);
-                
+
                 g.setFont(fnt5);
                 g.drawString("haah ah haha ha", 35, 320);
-                
+
                 g.setFont(fnt2);
                 g.drawRect(210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 g.drawString("Back", 240, 400);
-                    break;
-                }
-            case GameOver:{
+                break;
+            }
+            case GameOver: {
                 g.setFont(fnt1);
                 g.setColor(Color.WHITE);
                 g.drawString("Game Over", 190, 70);
-                
+
                 g.setFont(fnt2);
                 g.drawString("You lost!", 240, 180);
                 g.drawString("Score: " + hud.getScore(), 240, 250);
-                
+
                 g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 g.drawString("TRY AGAIN", 230, 400);
-                    break;
-                }
+                break;
+            }
             default:
                 break;
         }

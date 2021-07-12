@@ -1,14 +1,14 @@
 package com.quiyetbrul.breakout;
 
-import static com.quiyetbrul.breakout.GameMain.*;
-
 import java.awt.*;
 
-public class Ball extends GameObject{
+import static com.quiyetbrul.breakout.GameMain.*;
 
-    private Handler handler;
-    private Player player;
-    private HUD hud;
+public class Ball extends GameObject {
+
+    private final int BALL_WIDTH = 10;
+    private final int BALL_HEIGHT = 10;
+    private final Handler handler;
 
     // ball starting point
     /*
@@ -17,19 +17,19 @@ public class Ball extends GameObject{
     // redundant since paddle x,y coordinates are used
     // public static float BALL_X = 310;
     // public static float BALL_Y = 250;
-
-    private final int BALL_WIDTH = 10;
-    private final int BALL_HEIGHT = 10;
+    private Player player;
+    private HUD hud;
 
     public Ball(float x_coordinate, float y_coordinate, ID id, Handler handler) {
         super(x_coordinate, y_coordinate, id);
 
         this.handler = handler;
 
-        setVelX(0); setVelY(0);
+        setVelX(0);
+        setVelY(0);
     }
 
-    public Rectangle getBounds(){
+    public Rectangle getBounds() {
         return new Rectangle((int) x_coordinate, (int) y_coordinate, BALL_WIDTH, BALL_HEIGHT);
     }
 
@@ -56,12 +56,12 @@ public class Ball extends GameObject{
 
     }
 
-    private void hitBrick(){
-        for(int i = 0; i < handler.object.size(); i++){
+    private void hitBrick() {
+        for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
 
-            if(tempObject.getId() == ID.Brick){
-                if(getBounds().intersects(tempObject.getBounds())){
+            if (tempObject.getId() == ID.Brick) {
+                if (getBounds().intersects(tempObject.getBounds())) {
                     // velX *= -1; // keep velX, change velY -> makes physics more natural
                     velY *= -1;
 
@@ -72,44 +72,44 @@ public class Ball extends GameObject{
                     // this does not work
                     // int score; score+1;
                     // hud.setScore(score);
-                    hud.score++; // once setScore is figured out, change score to private in HUD
+                    HUD.score++; // once setScore is figured out, change score to private in HUD
                 }
             }
         }
     }
 
-    private void ballFalls(){
-        if(y_coordinate >= WINDOW_HEIGHT) {
-            hud.LIVES -= 1;
+    private void ballFalls() {
+        if (y_coordinate >= WINDOW_HEIGHT) {
+            HUD.LIVES -= 1;
             handler.removeObject(this);
-            if(hud.LIVES > 0)
-                for(int i = 0; i < handler.object.size(); i++) {
+            if (HUD.LIVES > 0)
+                for (int i = 0; i < handler.object.size(); i++) {
                     GameObject tempObject = handler.object.get(i);
                     if (tempObject.getId() == ID.Player) {
                         handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
                     }
                 }
-            if(gameStart == GAME_STATE.GameOver)
+            if (gameStart == GAME_STATE.GameOver)
                 handler.removeObject(this);
         }
     }
 
-    private void bounceOnWall(){
+    private void bounceOnWall() {
         // clamp not working when the ball falls through bottom edge
         // x_coordinate = GameMain.clamp((int) x_coordinate, 0, WINDOW_WIDTH - BALL_WIDTH);
         // y_coordinate = GameMain.clamp((int) y_coordinate, 0, WINDOW_HEIGHT - BALL_HEIGHT);
 
         // remove || y_coordinate >= WINDOW_HEIGHT - 50 to remove bottom wall
-        if(y_coordinate <=0 /*|| y_coordinate >= WINDOW_HEIGHT - 50*/) velY *= -1;
-        if(x_coordinate <=0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
+        if (y_coordinate <= 0 /*|| y_coordinate >= WINDOW_HEIGHT - 50*/) velY *= -1;
+        if (x_coordinate <= 0 || x_coordinate >= WINDOW_WIDTH - 20) velX *= -1;
     }
 
-    private void bounceOnPaddle(){
-        for(int i = 0; i < handler.object.size(); i++){
+    private void bounceOnPaddle() {
+        for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
 
-            if(tempObject.getId() == ID.Player){
-                if(getBounds().intersects(tempObject.getBounds())){
+            if (tempObject.getId() == ID.Player) {
+                if (getBounds().intersects(tempObject.getBounds())) {
                     // velX *= -1; // keep velX, change velY -> makes physics more natural
                     velY *= -1;
                 }

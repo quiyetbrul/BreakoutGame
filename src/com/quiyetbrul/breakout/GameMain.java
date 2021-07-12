@@ -1,33 +1,19 @@
 package com.quiyetbrul.breakout;
 
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferStrategy;
 
 public class GameMain extends Canvas implements Runnable {
 
-    private static final long serialVersionUID = 4730308219818161523L;
-
     // screen size
     public static final int WINDOW_WIDTH = 640, WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; // 16x9 ratio
-
+    private static final long serialVersionUID = 4730308219818161523L;
+    public static GAME_STATE gameStart = GAME_STATE.Menu;
     private Thread thread;
     private boolean running = false;
-
     private Handler handler;
     private HUD hud;
     private GameMenu menu;
-
-    public enum GAME_STATE {
-        Menu, Help, Game, GameOver, GameVictory
-    }
-
-    public static GAME_STATE gameStart = GAME_STATE.Menu;
-
-    private void init(){
-        handler = new Handler();
-        hud = new HUD();
-        menu = new GameMenu(this, handler, hud);
-    }
 
     public GameMain() {
         init();
@@ -36,6 +22,34 @@ public class GameMain extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler));
 
         new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "BREAKOUT GAME BY QUIYET BRUL", this);
+    }
+
+    // Clamps the elapsed time from the game loop
+    /*
+     * Without this, objects can possibly be led tunneling through other objects or
+     * getting out of bounds
+     */
+    public static int clamp(int var, int min, int max) {
+
+        // Clamping means literally in this instance.
+        //// it's used to restrict a value to a given range
+        if (var >= max) {
+            return var = max;
+        } else if (var <= min) {
+            return var = min;
+        } else {
+            return var;
+        }
+    }
+
+    public static void main(String[] args) {
+        new GameMain();
+    }
+
+    private void init() {
+        handler = new Handler();
+        hud = new HUD();
+        menu = new GameMenu(this, handler, hud);
     }
 
     // initialize multiple thread
@@ -141,25 +155,7 @@ public class GameMain extends Canvas implements Runnable {
         bs.show();
     }
 
-    // Clamps the elapsed time from the game loop
-    /*
-     * Without this, objects can possibly be led tunneling through other objects or
-     * getting out of bounds
-     */
-    public static int clamp(int var, int min, int max) {
-
-        // Clamping means literally in this instance.
-        //// it's used to restrict a value to a given range
-        if (var >= max) {
-            return var = max;
-        } else if (var <= min) {
-            return var = min;
-        } else {
-            return var;
-        }
-    }
-
-    public static void main(String args[]) {
-        new GameMain();
+    public enum GAME_STATE {
+        Menu, Help, Game, GameOver, GameVictory
     }
 }

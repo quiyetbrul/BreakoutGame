@@ -1,16 +1,14 @@
 package com.quiyetbrul.breakout;
 
-import static com.quiyetbrul.breakout.GameMain.*;
-
-import java.awt.event.*;
-import java.util.Random;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
 
-    private Handler handler;
+    private final Handler handler;
     private GameMain game;
     private Ball ball;
-    private boolean[] keyDown = new boolean[4];
+    private final boolean[] keyDown = new boolean[4];
 
     public KeyInput(Handler handler) {
         this.handler = handler;
@@ -28,14 +26,21 @@ public class KeyInput extends KeyAdapter {
 
             if (tempObject.getId() == ID.Player) {
                 switch (key) {
-                    case KeyEvent.VK_D: tempObject.setVelX(7); keyDown[1] = true; break;
-                    case KeyEvent.VK_A: tempObject.setVelX(-7); keyDown[2] = true; break;
-                    default: break;
+                    case KeyEvent.VK_D:
+                        tempObject.setVelX(7);
+                        keyDown[1] = true;
+                        break;
+                    case KeyEvent.VK_A:
+                        tempObject.setVelX(-7);
+                        keyDown[2] = true;
+                        break;
+                    default:
+                        break;
                 }
             }
 
-            if(tempObject.getId() == ID.Ball){
-                if(key == KeyEvent.VK_SPACE) keyDown[3] = true;///{ball.setVelX(5);ball.setVelY(5);}
+            if (tempObject.getId() == ID.Ball) {
+                if (key == KeyEvent.VK_SPACE) keyDown[3] = true;///{ball.setVelX(5);ball.setVelY(5);}
             }
         }
 
@@ -44,7 +49,6 @@ public class KeyInput extends KeyAdapter {
 //        if(key == KeyEvent.VK_ENTER){
 //            game.gameStart = GameMain.GAME_STATE.Game;
 //        }
-
 
 
         // escape the game anytime

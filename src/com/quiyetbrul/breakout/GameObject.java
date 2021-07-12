@@ -2,7 +2,7 @@ package com.quiyetbrul.breakout;
 
 import java.awt.*;
 
-public abstract class GameObject { 
+public abstract class GameObject {
 
     //constructor + mutator and accessor
     //takes care of the values in the x and y direction
@@ -24,46 +24,51 @@ public abstract class GameObject {
 
     // renders the object
     public abstract void render(Graphics g);
-    
+
     public abstract Rectangle getBounds();
+
+    public float getX_coordinate() {
+        return x_coordinate;
+    }
 
     // x-coordinate
     public void setX_coordinate(float x_coordinate) {
         this.x_coordinate = x_coordinate;
     }
-    public float getX_coordinate() {
-        return x_coordinate;
+
+    public float getY_coordinate() {
+        return y_coordinate;
     }
 
     // y-coordinate
     public void setY_coordinate(float y_coordinate) {
         this.y_coordinate = y_coordinate;
     }
-    public float getY_coordinate() {
-        return y_coordinate;
+
+    public ID getId() {
+        return id;
     }
 
     // game ID, for collision, collider
     public void setId(ID id) {
         this.id = id;
     }
-    public ID getId() {
-        return id;
+
+    public float getVelX() {
+        return velX;
     }
 
     // x-coordinate velocity
     public void setVelX(float velX) {
         this.velX = velX;
     }
-    public float getVelX() {
-        return velX;
+
+    public float getVelY() {
+        return velY;
     }
 
     // y-coordinate velocity
     public void setVelY(float velY) {
         this.velY = velY;
-    }
-    public float getVelY() {
-        return velY;
     }
 }
