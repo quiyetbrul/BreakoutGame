@@ -31,42 +31,8 @@ public class GameMenu extends MouseAdapter {
         //play button
         if (mouseOver(mx, my, 210, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
             hud.setScore(0);
+            gameStart();
 
-            gameStart = GameMain.GAME_STATE.Game;
-
-            // PADDLE
-            handler.addObject(new Player(Player.PADDLE_X, Player.PADDLE_Y, ID.Player, handler));
-
-            // ROWS OF BRICKS
-            // NOTES FOR WINDOW HEIGHT
-            /*
-             * WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; (algo for a 16x9 ration)
-             * in this instance, WINDOW_HEIGHT is ~480
-             *
-             * BRICK_HEIGHT = 20
-             *
-             * I NEED 8 ROWS OF BRICKS -> BRICK_HEIGHT * 8 = 160 (minimum space for 8 rows of bricks needed)
-             * HALF OF THE WINDOW HEIGHT IS 240
-             * NEEDED SPACE OF THE FRAME IS 200 (minimum height + number of rows * spacer)
-             * */
-
-            //x_rep is where the brick starts in each row
-            //y_rep is where the brick starts in each col
-            for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
-                for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
-                    handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
-                    brick_count++;
-                }
-            }
-
-
-            // BALL STARTS ON TOP OF THE PADDLE // STATIC
-            for (int i = 0; i < handler.object.size(); i++) {
-                GameObject tempObject = handler.object.get(i);
-                if (tempObject.getId() == ID.Player) {
-                    handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
-                }
-            }
         }
 
         //help button
@@ -87,24 +53,7 @@ public class GameMenu extends MouseAdapter {
             // clicks on try again
             if (mouseOver(mx, my, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
                 hud.setScore(0);
-
-                gameStart = GameMain.GAME_STATE.Game;
-
-                handler.addObject(new Player(Player.PADDLE_X, Player.PADDLE_Y, ID.Player, handler));
-
-                for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
-                    for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
-                        handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
-                        brick_count++;
-                    }
-                }
-
-                for (int i = 0; i < handler.object.size(); i++) {
-                    GameObject tempObject = handler.object.get(i);
-                    if (tempObject.getId() == ID.Player) {
-                        handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
-                    }
-                }
+                gameStart();
             }
 
             // maybe add a back-to-menu button
@@ -146,69 +95,110 @@ public class GameMenu extends MouseAdapter {
 
         if (null != gameStart) switch (gameStart) {
             case Menu: {
-                g.setFont(fnt1);
-                g.setColor(Color.WHITE);
-                g.drawString("BREAKOUT", 190, 70);
+                addDrawString(g, fnt1, Color.WHITE, "BREAKOUT", 190, 70);
 
-                g.setFont(fnt2);
-                g.drawRect(220, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("Play", 230, 200);
-                g.drawRect(220, 250, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("Help", 230, 300);
+                addDrawString(g, fnt2, Color.WHITE, "Play", 230, 200);
+                addClickableBox(g, fnt2, Color.WHITE, 220, 150, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
 
-                g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("Esc = QUIT", 230, 400);
+                addDrawString(g, fnt2, Color.WHITE, "Help", 230, 300);
+                addClickableBox(g, fnt2, Color.WHITE, 220, 250, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
+
+                addDrawString(g, fnt2, Color.WHITE, "Esc = QUIT", 230, 400);
+                addClickableBox(g, fnt2, Color.WHITE, 220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 break;
             }
             case Help: {
-                g.setFont(fnt1);
-                g.setColor(Color.WHITE);
-                g.drawString("Help", 250, 70);
 
-                g.setFont(fnt3);
-                g.drawString("use the keys A and D to move the paddle.", 30, 200);
-                g.drawString("dont let the ball fall through bottom edge.", 30, 220);
-                g.drawString("press spacebar to launch the ball.", 30, 240);
+                addDrawString(g, fnt1, Color.WHITE, "Help", 250, 70);
 
-                g.setFont(fnt4);
-                g.drawString("henlo googlers plz hire me lol", 35, 310);
+                addDrawString(g, fnt3, Color.WHITE, "use the keys A and D to move the paddle.", 30, 200);
+                addDrawString(g, fnt3, Color.WHITE, "dont let the ball fall through bottom edge.", 30, 220);
+                addDrawString(g, fnt3, Color.WHITE, "press spacebar to launch the ball.", 30, 240);
 
-                g.setFont(fnt5);
-                g.drawString("haah ah haha ha", 35, 320);
+                addDrawString(g, fnt4, Color.WHITE, "henlo googlers plz hire me lol", 35, 310);
 
-                g.setFont(fnt2);
-                g.drawRect(210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("Back", 240, 400);
+                addDrawString(g, fnt5, Color.WHITE, "haah ah haha ha", 35, 320);
+
+                addDrawString(g, fnt2, Color.WHITE, "Back", 240, 400);
+                addClickableBox(g, fnt2, Color.WHITE, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 break;
             }
             case GameOver: {
-                g.setFont(fnt1);
-                g.setColor(Color.WHITE);
-                g.drawString("Game Over", 190, 70);
 
-                g.setFont(fnt2);
-                g.drawString("You lost!", 240, 180);
-                g.drawString("Score: " + hud.getScore(), 240, 250);
+                addDrawString(g, fnt1, Color.WHITE, "GAME OVER!", 190, 70);
 
-                g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("AGAIN", 230, 400);
+                addDrawString(g, fnt2, Color.WHITE, "You lost!", 240, 180);
+                addDrawString(g, fnt2, Color.WHITE, "Score: " + hud.getScore(), 240, 250);
+
+                addDrawString(g, fnt2, Color.WHITE, "Again?", 230, 400);
+                addClickableBox(g, fnt2, Color.WHITE, 220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 break;
             }
             case GameVictory: {
-                g.setFont(fnt1);
-                g.setColor(Color.WHITE);
-                g.drawString("VICTORY!", 190, 70);
 
-                g.setFont(fnt2);
-                g.drawString("You won!", 240, 180);
-                g.drawString("Score: " + hud.getScore(), 240, 250);
+                addDrawString(g, fnt1, Color.WHITE, "VICTORY!", 190, 70);
 
-                g.drawRect(220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
-                g.drawString("AGAIN?", 230, 400);
+                addDrawString(g, fnt2, Color.WHITE, "You won!", 240, 180);
+                addDrawString(g, fnt2, Color.WHITE, "Score: " + hud.getScore(), 240, 250);
+
+                addDrawString(g, fnt2, Color.WHITE, "Again?", 230, 400);
+                addClickableBox(g, fnt2, Color.WHITE, 220, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT);
                 break;
             }
             default:
                 break;
+        }
+    }
+
+
+    private void addDrawString(Graphics g, Font font, Color color, String string, int x_coordinate, int y_coordinate){
+        g.setFont(font);
+        g.setColor(color);
+        g.drawString(string, x_coordinate, y_coordinate);
+    }
+
+    private void addClickableBox(Graphics g, Font font, Color color, int x_coordinate, int y_coordinate, int clickable_width, int clickable_height){
+        g.setFont(font);
+        g.setColor(color);
+        g.drawRect(x_coordinate, y_coordinate, clickable_width, clickable_height);
+    }
+
+
+    private void gameStart(){
+
+        gameStart = GameMain.GAME_STATE.Game;
+        // PADDLE
+        handler.addObject(new Player(Player.PADDLE_X, Player.PADDLE_Y, ID.Player, handler));
+
+        // ROWS OF BRICKS
+        // NOTES FOR WINDOW HEIGHT
+        /*
+         * WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9; (algo for a 16x9 ration)
+         * in this instance, WINDOW_HEIGHT is ~480
+         *
+         * BRICK_HEIGHT = 20
+         *
+         * I NEED 8 ROWS OF BRICKS -> BRICK_HEIGHT * 8 = 160 (minimum space for 8 rows of bricks needed)
+         * HALF OF THE WINDOW HEIGHT IS 240
+         * NEEDED SPACE OF THE FRAME IS 200 (minimum height + number of rows * spacer)
+         * */
+
+        //x_rep is where the brick starts in each row
+        //y_rep is where the brick starts in each col
+        for (int y_rep = Brick.BRICK_Y; y_rep < (WINDOW_HEIGHT / 2) - (ROWS * SPACER); y_rep += BRICK_SPACE_Y) {
+            for (int x_rep = Brick.BRICK_X; x_rep < WINDOW_WIDTH - Brick.BRICK_WIDTH; x_rep += BRICK_SPACE_X) {
+                handler.addObject(new Brick(x_rep, y_rep, ID.Brick, handler));
+                brick_count++;
+            }
+        }
+
+
+        // BALL STARTS ON TOP OF THE PADDLE // STATIC
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if (tempObject.getId() == ID.Player) {
+                handler.addObject(new Ball(tempObject.getX_coordinate() + 40, tempObject.getY_coordinate() - 10, ID.Ball, handler));
+            }
         }
     }
 }
