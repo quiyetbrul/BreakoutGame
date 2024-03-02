@@ -53,6 +53,7 @@ public class GameMenu extends MouseAdapter {
             // clicks on try again
             if (mouseOver(mx, my, 210, 350, CLICKABLE_WIDTH, CLICKABLE_HEIGHT)) {
                 hud.setScore(0);
+                HUD.LIVES = 5;
                 gameStart();
             }
 
